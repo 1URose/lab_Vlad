@@ -161,34 +161,8 @@ public:
 
     friend ostream& operator<< (ostream &out, const Complex& complex)
     {
-        /*
         out << "Rectangular: "<< complex.getReal() << " + i * " << complex.getImaginary() << "\n"
             "Polar:" << complex.getMagnitude() << " * e^(i * " << complex.getPhase() << ")\n\n";
-        return out;
-         */
-
-        out << "Rectangular: "<< complex.getReal();
-        if(complex.getImaginary() < 0){
-            out << " - i * " << -complex.getImaginary() << "\n";
-        }
-        else if(complex.getImaginary() == 0){
-            out << "\n";
-        }
-        else{
-                out << " + i * " << complex.getImaginary() << "\n";
-        }
-
-        out << "Polar: " << complex.getMagnitude();
-        if(complex.getPhase() < 0){
-            out << " * e^(- i * " << -complex.getPhase() << ")\n";
-        }
-        else if(complex.getPhase() == 0){
-            out << "\n";
-        }
-        else{
-            out << " * e^(i * " << complex.getPhase() << ")\n";
-        }
-        out << "\n";
         return out;
     }
     friend istream& operator>>(istream& in, Complex& complex) {
