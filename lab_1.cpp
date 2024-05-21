@@ -3,19 +3,12 @@
 
 using namespace std;
 
-
 class Complex {
 private:
     double real;
     double imaginary;
-
     double magnitude;
     double phase;
-
-    void updatePolar() {
-        magnitude = getModule();
-        phase = getArgument();
-    }
 
 public:
     Complex() = default;
@@ -33,8 +26,6 @@ public:
         return *this;
     }
 
-    ~Complex() = default;
-
     double getReal() const {
         return real;
     }
@@ -49,28 +40,28 @@ public:
     }
 
     double getModule() const{
-        return sqrt(real * real + imaginary * imaginary);
+        return ::sqrt(real * real + imaginary * imaginary);
     }
     double getArgument() const{
         return atan2(imaginary, real);
     }
     Complex getAdjoined() const {
-        return Complex(real, -imaginary);
+        return {real, -imaginary};
     }
-    Complex getSQRT() const {
-        double new_magnitude = sqrt(magnitude);
+    Complex sqrt() const {
+        double new_magnitude = ::sqrt(magnitude);
         double new_phase = phase / 2.0;
-        return Complex(new_magnitude * cos(new_phase), new_magnitude * sin(new_phase));
+        return {new_magnitude * cos(new_phase), new_magnitude * sin(new_phase)};
     }
-    Complex power(double exponent) const {
+    Complex power(int exponent) const {
         if (exponent == 0) {
-            return Complex(1, 0);
+            return {1, 0};
         } else if (exponent == 1) {
             return *this;
         } else {
             Complex result = power(exponent / 2);
             result *= result;
-            if ((int)exponent % 2 == 1) {
+            if (exponent % 2 == 1) {
                 result *= *this;
             }
             return result;
@@ -81,23 +72,22 @@ public:
         return this->getAdjoined();
     }
     Complex operator-() const{
-        return Complex(-real, -imaginary);
+        return {-real, -imaginary};
     }
     Complex operator^(int exponent) const {
-
         return this->power(exponent);
     }
 
     Complex operator+(const Complex& other) const {
-        return Complex(real + other.real, imaginary + other.imaginary);
+        return {real + other.real, imaginary + other.imaginary};
     }
     Complex operator-(const Complex& other) const {
-        return Complex(real - other.real, imaginary - other.imaginary);
+        return {real - other.real, imaginary - other.imaginary};
     }
     Complex operator*(const Complex& other) const {
         double real_part = real * other.real - imaginary * other.imaginary;
         double imaginary_part = real * other.imaginary + imaginary * other.real;
-        return Complex(real_part, imaginary_part);
+        return {real_part, imaginary_part};
     }
     Complex operator/(const Complex& other) const {
         if(other.isNull()){
@@ -106,7 +96,7 @@ public:
         double denominator = other.real * other.real + other.imaginary * other.imaginary;
         double real_part = (real * other.real + imaginary * other.imaginary) / denominator;
         double imaginary_part = (imaginary * other.real - real * other.imaginary) / denominator;
-        return Complex(real_part, imaginary_part);
+        return {real_part, imaginary_part};
     }
 
     Complex& operator+=(const Complex& other) {
@@ -148,7 +138,7 @@ public:
         return *this;
     }
     friend Complex operator+(const Complex& complex, double value) {
-        return Complex(complex.real + value, complex.imaginary);
+        return {complex.real + value, complex.imaginary};
     }
     friend Complex operator+(double value, const Complex& complex) {
         return complex + value;
@@ -159,14 +149,8 @@ public:
         return *this;
     }
 
-    friend ostream& operator<< (ostream &out, const Complex& complex)
+    friend ostream& operator<<(ostream &out, const Complex& complex)
     {
-        /*
-        out << "Rectangular: "<< complex.getReal() << " + i * " << complex.getImaginary() << "\n"
-            "Polar:" << complex.getMagnitude() << " * e^(i * " << complex.getPhase() << ")\n\n";
-        return out;
-         */
-
         out << "Rectangular: "<< complex.getReal();
         if(complex.getImaginary() < 0){
             out << " - i * " << -complex.getImaginary() << "\n";
@@ -207,8 +191,12 @@ public:
         }
         return false;
     }
+    void updatePolar() {
+        magnitude = getModule();
+        phase = getArgument();
+    }
+    ~Complex() = default;
 };
-
 
 int main() {
 
