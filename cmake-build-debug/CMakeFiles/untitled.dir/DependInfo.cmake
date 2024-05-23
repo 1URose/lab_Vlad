@@ -9,7 +9,6 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/mnt/c/Users/pengv/CLionProjects/untitled/lab_2.cpp" "CMakeFiles/untitled.dir/lab_2.cpp.o" "gcc" "CMakeFiles/untitled.dir/lab_2.cpp.o.d"
-  "/mnt/c/Users/pengv/CLionProjects/untitled/main.cpp" "CMakeFiles/untitled.dir/main.cpp.o" "gcc" "CMakeFiles/untitled.dir/main.cpp.o.d"
   )
 
 # Targets to which this target links.
